@@ -4,8 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
 
-export default () => {
-    return ( 
+export default () => (
         <Switch>
             <Route exact path='/'>
                 <Home />
@@ -14,5 +13,4 @@ export default () => {
                 <About />
             </Route>
         </Switch>
-    );
-}
+);

@@ -6,7 +6,10 @@
   },
   "parserOptions": {
     "ecmaVersion": 2018,
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "extends": ["airbnb-base"],
   "rules": {
@@ -14,7 +17,8 @@
     "no-param-reassign": "off",
     "eol-last": "off",
     "arrow-parens": "off",
-    "unexpected-token": "off"
+    "unexpected-token": "off",
+    "no-unused-vars":"off"
   },
   "ignorePatterns": [
     "dist/",
