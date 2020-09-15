@@ -14,22 +14,18 @@ const App = (props) => (
       <Header />
 
        <Routes />
-       
+
       <Footer />
     </Template>
   </BrowserRouter>
 );
 
-const mapStateToProps = (state) => {
-  return {
-    user:state.user
-  }
-}
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
 
-const mapDispachToProps = (dispatch) => {
-  return {
+const mapDispachToProps = (dispatch) => ({
 
-  };
-}
+});
 
 export default connect(mapStateToProps, mapDispachToProps)(App);
