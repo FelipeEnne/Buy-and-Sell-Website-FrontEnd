@@ -1,5 +1,5 @@
 import React from 'react';
-import { HeaderArea } from './styled'
+import HeaderArea from './styled'
 
 const Header = () => (
   <HeaderArea>
