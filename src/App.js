@@ -8,19 +8,17 @@ import { Template } from './components/MainComponents';
 import Header from './components/patials/Header';
 import Footer from './components/patials/Footer';
 
-const App = (props) => {
-  return (
-    <BrowserRouter>
-      <Template>
-        <Header />
+const App = (props) => (
+  <BrowserRouter>
+    <Template>
+      <Header />
 
-        <Routes />
-
-        <Footer />
-      </Template>
-    </BrowserRouter>
-  );
-}
+       <Routes />
+       
+      <Footer />
+    </Template>
+  </BrowserRouter>
+);
 
 const mapStateToProps = (state) => {
   return {
