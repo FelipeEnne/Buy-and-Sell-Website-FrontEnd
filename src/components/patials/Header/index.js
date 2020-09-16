@@ -12,6 +12,19 @@ const Header = () => (
             <span className="logoS">S</span>
         </Link>
       </div>
+      <nav>
+        <ul>
+          <li>
+            <Link to="">Login</Link>
+          </li>
+          <li>
+            <Link to="">Sign</Link>
+          </li>
+          <li>
+            <Link to="" className="button">Poste um anúncio</Link>
+          </li>
+        </ul>
+      </nav>
     </div>
   </HeaderArea>
 );
