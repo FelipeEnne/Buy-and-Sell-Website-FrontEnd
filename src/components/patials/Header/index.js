@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import HeaderArea from './styled';
 
-import isLogged from '../../../helpers/authHandler';
+import { isLogged } from '../../../helpers/authHandler';
 
 const Header = () => {
   const logged = isLogged();

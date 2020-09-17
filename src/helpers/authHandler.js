@@ -5,5 +5,12 @@ const isLogged = () => {
   return !!(token);
 };
 
+const doLogin = (token, rememberPassword = false) => {
+  if (rememberPassword) {
+    Cookies.set('token', token, { expires: 100 });
+  } else {
+    Cookies.set('token', token);
+  }
+};
 
-export default isLogged;
+export { isLogged, doLogin };
