@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PageArea from './styled';
 
 import useApi from '../../helpers/BSAPI';
-import { PageContainer, PageTitle } from '../../components/MainComponents';
+import { PageContainer, PageTitle, ErroMessage } from '../../components/MainComponents';
 import { doLogin } from '../../helpers/authHandler';
 
 const Page = () => {
@@ -32,23 +32,43 @@ const Page = () => {
   <PageContainer>
     <PageTitle>Login</PageTitle>
     <PageArea>
+      {error
+        && <ErroMessage>{error}</ErroMessage>
+      }
       <form onSubmit={handleSubmit}>
         <label className='area'>
            <div className='area--title'>E-mail</div>
            <div className='area--input'>
-             <input type='email' disabled={disabled} />
+             <input
+              type='email'
+              disabled={disabled}
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+            />
            </div>
         </label>
         <label className='area'>
            <div className='area--title'>Password</div>
            <div className='area--input'>
-             <input type='password' disabled={disabled} />
+             <input
+              type='password'
+              disabled={disabled}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+            />
            </div>
         </label>
         <label className='area'>
            <div className='area--title'>Remember Password</div>
            <div className='area--input'>
-             <input type='checkbox' disabled={disabled} />
+            <input
+              type='checkbox'
+              disabled={disabled}
+              checked={rememberPassword}
+              onChange={() => setRememberPassword(!rememberPassword)}
+            />
            </div>
         </label>
         <label className='area'>

@@ -13,7 +13,14 @@ const PageTitle = styled.h1`
 
 const PageBody = styled.div``;
 
+const ErroMessage = styled.div`
+  margin:10px 0;
+  background-color:#FFCACA;
+  color:#000;
+  border:2px solid #FF0000;
+  padding:10px;
+`;
 
 export {
-  Template, PageContainer, PageTitle, PageBody,
+  Template, PageContainer, PageTitle, PageBody, ErroMessage,
 };
