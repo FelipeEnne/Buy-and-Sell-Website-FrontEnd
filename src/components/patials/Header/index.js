@@ -28,7 +28,7 @@ const Header = () => {
               <Link to="/signup">Sign</Link>
             </li>
             <li>
-              <Link to="/signin" className="button">Poste um anúncio</Link>
+              <Link to="/signin" className="button">Post an ad</Link>
             </li>
             </>
           }
@@ -41,7 +41,7 @@ const Header = () => {
               <Link to="/logout">Logout</Link>
             </li>
             <li>
-              <Link to="" className="button">Poste um anúncio</Link>
+              <Link to="" className="button">Post an ad</Link>
             </li>
             </>
           }
