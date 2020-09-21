@@ -13,4 +13,8 @@ const doLogin = (token, rememberPassword = false) => {
   }
 };
 
-export { isLogged, doLogin };
+const doLogout = () => {
+  Cookies.remove('token');
+};
+
+export { isLogged, doLogin, doLogout };
