@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PageArea from './styled';
 
 import useApi from '../../helpers/BSAPI';
@@ -16,6 +16,16 @@ const Page = () => {
   const [disabled, setDisabled] = useState(false);
   const [error, setError] = useState('');
 
+  const [stateList, setStateList] = useState([]);
+
+  useEffect(() => {
+    const getStates = async () => {
+      const slist = await api.getStates();
+      setStateList(slist);
+    };
+    getStates();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setDisabled(true);
@@ -25,7 +35,7 @@ const Page = () => {
     if (json.error) {
       setError(json.error);
     } else {
-      //doLogin(json.token, rememberPassword);
+      // doLogin(json.token, rememberPassword);
       window.location.href = '/';
     }
 
@@ -57,6 +67,11 @@ const Page = () => {
            <div className='area--input'>
             <select value={stateLoc} onChange={e => setStateLoc(e.target.value)} required>
               <option></option>
+
+              {stateList.map((i, k) => <option key={k} value={i.id}>
+                  {i.name}
+                </option>)}
+
             </select>
            </div>
         </label>
