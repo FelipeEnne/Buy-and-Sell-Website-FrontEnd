@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { PageArea, Fake } from './styled';
 
@@ -10,8 +10,29 @@ const Page = () => {
   const { id } = useParams();
 
   const [loading, setLoading] = useState(true);
-  const [adInfo, setAdInfo] = useState([]);
+  const [adInfo, setAdInfo] = useState({});
 
+  useEffect(() => {
+    const getAdInfo = async (id) => {
+      const json = await api.getAd(id, true);
+      setAdInfo(json);
+      setLoading(false);
+    };
+
+    getAdInfo(id);
+  }, []);
+
+
+  const formatDate = (date) => {
+    const cDate = new Date(date);
+
+    const months = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+    const cDay = cDate.getDate();
+    const cMonth = cDate.getMonth();
+    const cYear = cDate.getFullYear();
+
+    return `${cDay} de ${months[cMonth]} de ${cYear}`;
+  };
 
   return (
   <PageContainer>
@@ -24,9 +45,14 @@ const Page = () => {
           <div className='adInfo'>
             <div className='adName'>
               {loading && <Fake height={20} />}
+              {adInfo.title && <h2>{adInfo.title}</h2>}
+              {adInfo.dateCreated && <small>{formatDate(adInfo.dateCreated)}</small>}
             </div>
             <div className='adDescription'>
-            {loading && <Fake height={100}/>}
+              {loading && <Fake height={100}/>}
+              {adInfo.description}
+              <hr/>
+              {adInfo.views && <small>Views {adInfo.views}</small>}
             </div>
           </div>
         </div>
