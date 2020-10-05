@@ -70,10 +70,20 @@ const Page = () => {
       <div className='rightSide'>
         <div className='box box--padding'>
           {loading && <Fake height={20} />}
+          {adInfo.priceNegotiable && 'Negotiable'}
+          {!adInfo.priceNegotiable && adInfo.price && <div className='price'>
+            Price: <span>${adInfo.price}</span>
+          </div>}
         </div>
-        <div className='box box--padding'>
-          {loading && <Fake height={50} />}
-        </div>
+        {loading && <Fake height={50} />}
+        {adInfo.userInfo && <div>
+          <a href={`mailto:${adInfo.userInfo.email}`} target='_blank' className='contactSellerLink'>Contact Seller</a>
+          <div className='createdby box box--padding'>
+            <strong>{adInfo.userInfo.name}</strong>
+            <small>E-mail: {adInfo.userInfo.email}</small>
+            <small>State: {adInfo.stateName}</small>
+          </div>
+        </div>}
       </div>
     </PageArea>
   </PageContainer>
