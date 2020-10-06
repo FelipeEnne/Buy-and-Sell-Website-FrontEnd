@@ -89,11 +89,11 @@ const PageArea = styled.div`
       margin-bottom:20px;
     }
 
-    .createdby strong{
+    .createdby strong {
       display:block;
     }
 
-    .createdby small{
+    .createdby small {
       display:block;
       color:#999;
       margin-top:10px;
@@ -101,4 +101,29 @@ const PageArea = styled.div`
   }
 `;
 
-export { PageArea, Fake };
+const OthersArea = styled.div`
+  h2 {
+    font-size:20px;
+  }
+
+  .list {
+    display:flex;
+
+    .adItem {
+      width:25%;
+    }
+  }
+`;
+
+const BreadChumb = styled.div`
+  a {
+    display:inline-block;
+    margin:0px 5px;
+    text-decoration:underline;
+    color:#000;
+  }
+`;
+
+export {
+  PageArea, Fake, OthersArea, BreadChumb,
+};
