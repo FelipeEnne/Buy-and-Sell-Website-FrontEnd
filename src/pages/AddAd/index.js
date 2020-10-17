@@ -1,15 +1,20 @@
-import React, { useState, useRef } from 'react';
+/* eslint-disable no-underscore-dangle */
+import React, { useState, useEffect, useRef } from 'react';
+import MaskedInput from 'react-text-mask';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
+
 import PageArea from './styled';
 
 import useApi from '../../helpers/BSAPI';
 import { PageContainer, PageTitle, ErroMessage } from '../../components/MainComponents';
-import { doLogin } from '../../helpers/authHandler';
+
 
 const Page = () => {
   const api = useApi();
   const fileField = useRef();
 
   const [title, setTitle] = useState('');
+  const [categories, setCategories] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
   const [priceNegotiable, setPriceNegotiable] = useState(false);
@@ -17,6 +22,14 @@ const Page = () => {
 
   const [disabled, setDisabled] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const cats = await api.getCategories();
+      setCategories(cats);
+    };
+    getCategories();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,6 +48,14 @@ const Page = () => {
     setDisabled(false);
   };
 
+  const priceMask = createNumberMask({
+    prefix: 'R$ ',
+    includeThosandsSeparator: true,
+    thousandsSeparatorSymbol: '.',
+    allowDecimal: true,
+    decimalSymbol: '.',
+  });
+
   return (
   <PageContainer>
     <PageTitle>Post ad</PageTitle>
@@ -47,7 +68,7 @@ const Page = () => {
            <div className='area--title'>Title</div>
            <div className='area--input'>
              <input
-              type='texy'
+              type='text'
               disabled={disabled}
               value={title}
               onChange={e => setTitle(e.target.value)}
@@ -58,15 +79,29 @@ const Page = () => {
         <label className='area'>
            <div className='area--title'>Category</div>
            <div className='area--input'>
-             <select>
-
+             <select
+                disabled={disabled}
+                onChange={e => setCategory(e.target.value)}
+                required
+              >
+                <option></option>
+                {categories && categories.map(i => <option
+                  key={i._id}
+                  value={i._id}
+                  >{i.name}</option>)}
              </select>
            </div>
         </label>
         <label className='area'>
            <div className='area--title'>Price</div>
            <div className='area--input'>
-            ...
+           <MaskedInput
+                mask={priceMask}
+                placeholder='R$ '
+                disabled={disabled || priceNegotiable}
+                value={price}
+                onChange={e => setPrice(e.target.value)}
+              />
            </div>
         </label>
         <label className='area'>

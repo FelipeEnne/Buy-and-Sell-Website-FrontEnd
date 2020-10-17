@@ -25,7 +25,6 @@ const PageArea = styled.div`
                 width:100%;
                 font-size:14px;
                 padding:5px;
-                border:1px solid #DDD;
                 border-radius:3px;
                 outline:0;
                 transition:all ease .4s;
