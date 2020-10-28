@@ -46,7 +46,7 @@ const Header = () => {
               <button onClick={handleLogout}>Logout</button>
             </li>
             <li>
-              <Link to="/post-and-ad" className="button">Post an ad</Link>
+              <Link to="" className="button">Post an ad</Link>
             </li>
             </>
           }

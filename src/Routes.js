@@ -8,8 +8,6 @@ import NotFound from './pages/NotFound';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import AdPage from './pages/AdPage';
-import AddAd from './pages/AddAd';
-
 
 export default () => (
     <Switch>
@@ -30,9 +28,6 @@ export default () => (
         </RouterHandler>
         <RouterHandler exact private path='/ad/:id'>
             <AdPage />
-        </RouterHandler>
-        <RouterHandler exact private path='/post-and-ad'>
-            <AddAd />
         </RouterHandler>
         <RouterHandler>
             <NotFound />
