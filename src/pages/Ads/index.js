@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import PageArea from './styled';
 
 import useApi from '../../helpers/BSAPI';
@@ -8,6 +8,7 @@ import AdItem from '../../components/patials/AdItem';
 
 const Page = () => {
   const api = useApi();
+  const history = useHistory();
   const useQueryString = () => new URLSearchParams(useLocation().search);
 
   const query = useQueryString();
@@ -19,6 +20,23 @@ const Page = () => {
   const [stateList, setStateList] = useState([]);
   const [categories, setCategories] = useState([]);
   const [adList, setAdList] = useState([]);
+
+  useEffect(() => {
+    const queryString = [];
+    if (q) {
+      queryString.push(`q=${q}`);
+    }
+    if (cat) {
+      queryString.push(`cat=${cat}`);
+    }
+    if (getState) {
+      queryString.push(`state=${getState}`);
+    }
+
+    history.replace({
+      search: `?${queryString.join('&')}`,
+    });
+  }, [q, cat, getState]);
 
   useEffect(() => {
     const getStates = async () => {
@@ -52,10 +70,16 @@ const Page = () => {
       <PageArea>
         <div className='leftSide'>
           <form method='GET'>
-            <input type='text' name='q' value={q} placeholder='What are you looking for?'/>
+            <input
+              type='text'
+              name='q'
+              value={q}
+              placeholder='What are you looking for?'
+              onChange={(e => setQ(e.target.value))}
+            />
 
             <div className='filterName'>Estado:</div>
-            <select name='state' value={getState}>
+            <select name='state' value={getState} onChange={(e => setGetState(e.target.value))}>
               <option></option>
               {stateList.map((i, k) => (
                 <option key={k} value={i.name}>{i.name}</option>
@@ -65,7 +89,11 @@ const Page = () => {
             <div className='filterName'>Categoria:</div>
             <ul>
                 {categories.map((i, k) => (
-                  <li key={k} className={cat === i.slug ? 'categoryItem active' : 'categoryItem'}>
+                  <li
+                    key={k}
+                    className={cat === i.slug ? 'categoryItem active' : 'categoryItem'}
+                    onClick={(e => setCat(i.slug))}
+                  >
                     <img src={i.img} alt=''/>
                     <span>{i.name}</span>
                   </li>
