@@ -6,6 +6,8 @@ import useApi from '../../helpers/BSAPI';
 import { PageContainer } from '../../components/MainComponents';
 import AdItem from '../../components/patials/AdItem';
 
+let timer;
+
 const Page = () => {
   const api = useApi();
   const history = useHistory();
@@ -20,6 +22,20 @@ const Page = () => {
   const [stateList, setStateList] = useState([]);
   const [categories, setCategories] = useState([]);
   const [adList, setAdList] = useState([]);
+
+  const [resultOpacity, setResultOpacity] = useState(1);
+
+  const getAdsList = async () => {
+    const json = await api.getAds({
+      sort: 'desc',
+      limit: 9,
+      q,
+      cat,
+      state: getState,
+    });
+    setAdList(json.ads);
+    setResultOpacity(1);
+  };
 
   useEffect(() => {
     const queryString = [];
@@ -36,6 +52,13 @@ const Page = () => {
     history.replace({
       search: `?${queryString.join('&')}`,
     });
+
+    if (timer) {
+      clearTimeout(timer);
+    }
+
+    timer = setTimeout(getAdsList, 1500);
+    setResultOpacity(0.3);
   }, [q, cat, getState]);
 
   useEffect(() => {
@@ -54,16 +77,6 @@ const Page = () => {
     getCategories();
   }, []);
 
-  useEffect(() => {
-    const getRecentAds = async () => {
-      const json = await api.getAds({
-        sort: 'desc',
-        limit: 8,
-      });
-      setAdList(json.ads);
-    };
-    getRecentAds();
-  }, []);
 
   return (
     <PageContainer>
@@ -101,7 +114,12 @@ const Page = () => {
             </ul>
           </form>
         </div>
-        <div className='rightSide'>...</div>
+        <div className='rightSide'>
+          <h2>Resultados</h2>
+          <div className='list' style={{ opacity: resultOpacity }}>
+            {adList.map((i, k) => <AdItem key={k} data={i} />)}
+          </div>
+        </div>
       </PageArea>
     </PageContainer>
   );
