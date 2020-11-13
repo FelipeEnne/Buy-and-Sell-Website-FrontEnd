@@ -24,8 +24,10 @@ const Page = () => {
   const [adList, setAdList] = useState([]);
 
   const [resultOpacity, setResultOpacity] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   const getAdsList = async () => {
+    setLoading(true);
     const json = await api.getAds({
       sort: 'desc',
       limit: 9,
@@ -35,6 +37,7 @@ const Page = () => {
     });
     setAdList(json.ads);
     setResultOpacity(1);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -91,7 +94,7 @@ const Page = () => {
               onChange={(e => setQ(e.target.value))}
             />
 
-            <div className='filterName'>Estado:</div>
+            <div className='filterName'>State:</div>
             <select name='state' value={getState} onChange={(e => setGetState(e.target.value))}>
               <option></option>
               {stateList.map((i, k) => (
@@ -99,7 +102,7 @@ const Page = () => {
               ))}
             </select>
 
-            <div className='filterName'>Categoria:</div>
+            <div className='filterName'>Categories:</div>
             <ul>
                 {categories.map((i, k) => (
                   <li
@@ -115,7 +118,11 @@ const Page = () => {
           </form>
         </div>
         <div className='rightSide'>
-          <h2>Resultados</h2>
+          <h2>Result</h2>
+
+          {loading && <div className='listWarning'>Loading....</div>}
+          {!loading && adList.length === 0 && <div className='listWarning'>No results found</div>}
+
           <div className='list' style={{ opacity: resultOpacity }}>
             {adList.map((i, k) => <AdItem key={k} data={i} />)}
           </div>
