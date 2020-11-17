@@ -76,6 +76,23 @@ const PageArea = styled.div`
                 width:33%;
             }
         }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0px;
+
+            .pageItem {
+                width: 30px;
+                height: 30px;
+                border: 1px solid #000;
+                display: flex;
+                justify-content:center;
+                font-size: 14px;
+                margin-right:5px;
+            }
+        }
     }
 `;
 
