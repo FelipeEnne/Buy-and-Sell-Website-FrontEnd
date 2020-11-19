@@ -4,7 +4,8 @@ import FooterArea from './styled';
 
 const Footer = () => (
   <FooterArea>
-    ....
+    All rights reserved<br/>
+    B&S Clone OLX
   </FooterArea>
 );
 
