@@ -73,6 +73,28 @@ const SearchArea = styled.div`
             }
         }
     }
+
+    @media (max-width: 600px)  {
+        .searchBox form{
+            flex-direction: column;
+
+            input {
+                padding:10px;
+                margin-right:0;
+                margin-bottom:10px;
+            }
+
+            select {
+                width:100%;
+                margin-bottom:10px;
+            }
+        }
+    }
+
+    .categoryList .categoryItem{
+        width:50%;
+    }
+
 `;
 
 const PageArea = styled.div`
@@ -94,6 +116,16 @@ const PageArea = styled.div`
         font-weight:bold;
         display:inline-block;
         margin-top:10px;
+    }
+
+    @media (max-width: 600px) {
+        & {
+            margin:10px;
+        }
+
+        .list .adItem {
+            width:50%;
+        }
     }
 `;
 
