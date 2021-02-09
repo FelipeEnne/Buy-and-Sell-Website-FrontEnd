@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Fake = styled.div`
-  background-color:#DDD;
-  height:${props => props.height || 20}px;
+  background-color: #ddd;
+  height: ${(props) => props.height || 20}px;
 `;
 
 const PageArea = styled.div`
@@ -99,31 +99,75 @@ const PageArea = styled.div`
       margin-top:10px;
     }
   }
+
+  @media (max-width:600px) {
+    & {
+      flex-direction:column;
+    }
+    .leftSide {
+      margin: 0;
+      .box {
+        margin: auto;
+        width: 320px;
+        flex-direction:column;
+      }
+
+      .addInfo {
+        padding: 10px;
+      }
+    }
+    .rightSide {
+      width: auto;
+      margin-top:20px;
+      .box {
+        margin: auto;
+        width: 320px;
+      }
+      .contactSellerLink {
+        width:320px;
+        margin: 20px auto;
+      }
+    }
+  }
 `;
 
 const OthersArea = styled.div`
   h2 {
-    font-size:20px;
+    font-size: 20px;
   }
 
   .list {
-    display:flex;
+    display: flex;
+    flex-wrap: wrap;
 
     .adItem {
-      width:25%;
+      width: 25%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    & {
+      margin-top: 10px;
+    }
+    .list .adItem {
+      width: 50%;
     }
   }
 `;
 
 const BreadChumb = styled.div`
   a {
-    display:inline-block;
-    margin:0px 5px;
-    text-decoration:underline;
-    color:#000;
+    display: inline-block;
+    margin: 0px 5px;
+    text-decoration: underline;
+    color: #000;
+  }
+
+  @media (max-width: 600px) {
+    & {
+      margin-top: 20px;
+    }
   }
 `;
 
-export {
-  PageArea, Fake, OthersArea, BreadChumb,
-};
+export { PageArea, Fake, OthersArea, BreadChumb };

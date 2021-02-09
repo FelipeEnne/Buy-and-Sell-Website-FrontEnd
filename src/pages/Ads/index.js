@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
-import PageArea from './styled';
+import React, { useState, useEffect } from "react";
+import { useLocation, useHistory } from "react-router-dom";
+import PageArea from "./styled";
 
-import useApi from '../../helpers/BSAPI';
-import { PageContainer } from '../../components/MainComponents';
-import AdItem from '../../components/patials/AdItem';
+import useApi from "../../helpers/BSAPI";
+import { PageContainer } from "../../components/MainComponents";
+import AdItem from "../../components/patials/AdItem";
 
 let timer;
 
@@ -15,9 +15,13 @@ const Page = () => {
 
   const query = useQueryString();
 
-  const [q, setQ] = useState(query.get('q') !== null ? query.get('q') : '');
-  const [cat, setCat] = useState(query.get('cat') !== null ? query.get('cat') : '');
-  const [getState, setGetState] = useState(query.get('state') !== null ? query.get('state') : '');
+  const [q, setQ] = useState(query.get("q") !== null ? query.get("q") : "");
+  const [cat, setCat] = useState(
+    query.get("cat") !== null ? query.get("cat") : ""
+  );
+  const [getState, setGetState] = useState(
+    query.get("state") !== null ? query.get("state") : ""
+  );
 
   const [adsTotal, setAdsTotal] = useState(0);
   const [stateList, setStateList] = useState([]);
@@ -35,7 +39,7 @@ const Page = () => {
     offset = (currentPage - 1) * 9;
 
     const json = await api.getAds({
-      sort: 'desc',
+      sort: "desc",
       limit: 9,
       q,
       cat,
@@ -69,7 +73,7 @@ const Page = () => {
     }
 
     history.replace({
-      search: `?${queryString.join('&')}`,
+      search: `?${queryString.join("&")}`,
     });
 
     if (timer) {
@@ -110,61 +114,77 @@ const Page = () => {
   return (
     <PageContainer>
       <PageArea>
-        <div className='leftSide'>
-          <form method='GET'>
+        <div className="leftSide">
+          <form method="GET">
             <input
-              type='text'
-              name='q'
+              type="text"
+              name="q"
               value={q}
-              placeholder='What are you looking for?'
-              onChange={(e => setQ(e.target.value))}
+              placeholder="What are you looking for?"
+              onChange={(e) => setQ(e.target.value)}
             />
 
-            <div className='filterName'>State:</div>
-            <select name='state' value={getState} onChange={(e => setGetState(e.target.value))}>
+            <div className="filterName">State:</div>
+            <select
+              name="state"
+              value={getState}
+              onChange={(e) => setGetState(e.target.value)}
+            >
               <option></option>
               {stateList.map((i, k) => (
-                <option key={k} value={i.name}>{i.name}</option>
+                <option key={k} value={i.name}>
+                  {i.name}
+                </option>
               ))}
             </select>
 
-            <div className='filterName'>Categories:</div>
+            <div className="filterName">Categories:</div>
             <ul>
-                {categories.map((i, k) => (
-                  <li
-                    key={k}
-                    className={cat === i.slug ? 'categoryItem active' : 'categoryItem'}
-                    onClick={(e => setCat(i.slug))}
-                  >
-                    <img src={i.img} alt=''/>
-                    <span>{i.name}</span>
-                  </li>
-                ))}
+              {categories.map((i, k) => (
+                <li
+                  key={k}
+                  className={
+                    cat === i.slug ? "categoryItem active" : "categoryItem"
+                  }
+                  onClick={(e) => setCat(i.slug)}
+                >
+                  <img src={i.img} alt="" />
+                  <span>{i.name}</span>
+                </li>
+              ))}
             </ul>
           </form>
         </div>
-        <div className='rightSide'>
+        <div className="rightSide">
           <h2>Result</h2>
 
-          {loading && adList.length === 0 && <div className='listWarning'>Loading....</div>}
-          {!loading && adList.length === 0 && <div className='listWarning'>No results found</div>}
+          {loading && adList.length === 0 && (
+            <div className="listWarning">Loading....</div>
+          )}
+          {!loading && adList.length === 0 && (
+            <div className="listWarning">No results found</div>
+          )}
 
-          <div className='list' style={{ opacity: resultOpacity }}>
-            {adList.map((i, k) => <AdItem key={k} data={i} />)}
+          <div className="list" style={{ opacity: resultOpacity }}>
+            {adList.map((i, k) => (
+              <AdItem key={k} data={i} />
+            ))}
           </div>
-          <div className='pagination'>
-            {pagination.map((i, k) => <div
-              onClick={() => setCurrentPage(i)}
-              className={i === currentPage ? 'pageItem active' : 'pageItem'}>
+          <div className="pagination">
+            {pagination.map((i, k) => (
+              <div
+                key={k}
+                onClick={() => setCurrentPage(i)}
+                className={i === currentPage ? "pageItem active" : "pageItem"}
+              >
                 {i}
-              </div>)}
+              </div>
+            ))}
           </div>
         </div>
-
       </PageArea>
     </PageContainer>
   );
 };
-
 
 export default Page;
